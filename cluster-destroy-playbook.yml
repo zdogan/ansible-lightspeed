@@ -1,0 +1,22 @@
+---
+- name: Destroy OpenShift Cluster
+  hosts: localhost
+  tasks:
+    - name: Set OpenShift install directory
+      set_fact:
+        install_dir: /root/openshift-install
+
+    - name: Check if install directory exists
+      stat:
+        path: "{{ install_dir }}"
+      register: install_dir_stat
+
+    - name: Run OpenShift destroy cluster
+      command: openshift-install destroy cluster --dir={{ install_dir }} --log-level=info
+      when: install_dir_stat.stat.exists
+
+    - name: Remove OpenShift install directory
+      file:
+        path: "{{ install_dir }}"
+        state: absent
+      when: install_dir_stat.stat.exists

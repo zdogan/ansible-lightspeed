@@ -1,0 +1,26 @@
+---
+- name: Download the certificate zip file
+  ansible.builtin.get_url:
+    url: https://osgym.pal.tecnet/certs/download.zip
+    dest: /tmp/certs/download.zip
+
+- name: Unzip the downloaded certificate files
+  ansible.builtin.unarchive:
+    src: /tmp/certs/download.zip
+    dest: /tmp/certs/
+    remote_src: yes
+
+- name: Copy certificates to system trust
+  ansible.builtin.copy:
+    src: /tmp/certs/lin/
+    dest: /etc/pki/ca-trust/source/anchors
+    mode: '0644'
+
+- name: Update CA trust
+  ansible.builtin.command:
+    cmd: update-ca-trust extract
+
+- name: Clean up temporary certificate files
+  ansible.builtin.file:
+    path: /tmp/certs/
+    state: absent

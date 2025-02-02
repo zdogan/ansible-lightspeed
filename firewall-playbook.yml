@@ -1,0 +1,24 @@
+
+---
+# Translated firewall rule-setting actions from the UI into a playbook
+# Used modules to configure pfSense firewalls with Ansible.
+- name: Allow traffic for NTP # 100% SD
+  hosts: pfsense
+  gather_facts: no
+  tasks:
+    - name: Allow NTP traffic
+      pfsense_rule:
+        action: pass
+        interface: wan
+        protocol: udp
+        source: any
+        destination: any
+        destination_port: 123
+        description: "Allow NTP traffic"
+        state: present
+      register: ntp_rule
+
+    - name: Apply changes
+      pfsense_reload:
+        delay: 10
+      when: ntp_rule.changed

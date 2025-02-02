@@ -1,0 +1,18 @@
+- name: Install jmespath with pip
+  ansible.builtin.pip:
+    name: jmespath
+    state: present
+    extra_args: --user
+  # This task is responsible for installing the "jmespath" Python package using the Ansible pip module.
+  # ansible.builtin.pip: This is the Ansible module used to manage Python packages. In this case, it is being used to install the "jmespath" package.
+  # "present" means that Ansible should ensure that the "jmespath" package is installed on the target system. If it's not already installed, Ansible will attempt to install it.
+  # --user, which means the package will be installed in the user's home directory, rather than system-wide. Installing packages with --user is useful if you want to isolate Python packages for a specific user without requiring administrative privileges.
+
+- name: Add a line to /etc/hosts for all of the OpenShift endpoints
+  ansible.builtin.lineinfile:
+    path: /etc/hosts
+    line: "{{ ocp_etc_hosts_ip }} {{ ocp_etc_hosts_fqdns }}"
+    state: present
+  become: true
+  # The goal is to set up host name resolution for OpenShift endpoints.
+  # The task's purpose is to add a line in the /etc/hosts file that maps the IP address specified in the ocp_etc_hosts_ip variable to the fully qualified domain name (FQDN) specified in the ocp_etc_hosts_fqdns variable. This is commonly done to configure host name resolution for OpenShift endpoints on the target system.

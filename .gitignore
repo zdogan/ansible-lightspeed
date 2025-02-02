@@ -1,0 +1,25 @@
+# Ignore Python virtual environment directories
+venv/
+env/
+
+# Ignore Python cache files
+__pycache__/
+*.py[cod]
+
+# Ignore Ansible retry files
+*.retry
+
+# Ignore secrets file
+secrets.json
+
+# Ignore log files
+*.log
+
+# Ignore temporary files
+*.tmp
+*.swp
+*.bak
+
+# Ignore system files
+.DS_Store
+Thumbs.db

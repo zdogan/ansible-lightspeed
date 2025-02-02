@@ -1,0 +1,3 @@
+# defined the variables in reusable variable files, by this way, the sensitive variables are separated from playbooks.
+vars_files:
+   - vars/config.yml
