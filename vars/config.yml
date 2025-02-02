@@ -1,3 +1,5 @@
-# defined the variables in reusable variable files, by this way, the sensitive variables are separated from playbooks.
-vars_files:
-   - vars/config.yml
+# Defined the variables in reusable variable files, by this way, the sensitive variables are separated from playbooks.
+# Define variables for the playbooks
+openshift_pull_secret: '{"auths":{"cloud.openshift.com":{"auth":"<your_pull_secret>"}}}'
+ssh_public_key: "ssh-rsa Axxxx... your_ssh_key_here"
+openshift_install_dir: "/root/openshift-install"
