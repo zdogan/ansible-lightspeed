@@ -40,6 +40,7 @@ The final result is a **fully operational cluster** with automation-enhanced dep
 ## **Tools & Approaches for Developing Ansible Playbooks**  
 
 ### **1. Jinja2 Templates**  
+
 - Ansible uses **Jinja2 templating** to define **dynamic content** in playbooks.  
 - **Usage:** Create flexible and reusable templates for **install-config.yml**.  
 
@@ -53,15 +54,14 @@ compute:
   replicas: {{ worker_count }}
 
 
-## **2. Ansible Lint**  
+### 2. **Ansible Lint**  
 
 - **Description:** Ensures **best practices, consistency, and error-free** playbooks.  
 - **Usage:** Run `ansible-lint` to validate playbooks before deployment.  
 
 💡 **Example:**  
-```sh
+```bash
 ansible-lint cluster-playbook.yml
-```
 
 ---
 
@@ -127,8 +127,7 @@ Total **66 tasks** across **19 roles** → **627 lines of code (LOC)**.
 - 📖 [Ansible AWS EC2 Module](https://docs.ansible.com/ansible/latest/collections/amazon/aws/ec2_instance_module.html)  
 - 📖 [IBM Watsonx Ansible LightSpeed User Guide](https://access.redhat.com/documentation/en-us/red_hat_ansible_lightspeed_with_ibm_watsonx_code_assistant/2.x_latest/html/red_hat_ansible_lightspeed_with_ibm_watsonx_code_assistant_user_guide/lightspeed-intro)  
 - 📖 [Ansible Documentation](https://docs.ai.ansible.redhat.com/)  
-- 🎥 [YouTube: Introduction to Ansible LightSpeed](https://www.youtube.com/watch?v=Ty2d-nlnZPQ)  
-- 🏗 [Ansible LightSpeed TechZone Demos](https://ai-assisted-it-automation.tech-patterns.techzone.ibm.com/lightspeed-code-assistant/#demos)  
+- 🎥 [YouTube: Introduction to Ansible LightSpeed](https://www.youtube.com/watch?v=Ty2d-nlnZPQ)   
 - 🛠 [Ansible Lint Best Practices](https://www.redhat.com/sysadmin/ansible-lint-YAML)  
 - 📂 [GitHub: Ansible-WCA Demo Kit](https://github.com/chetan-hireholi/ansible-wca-demo-kit)  
 - 📂 [GitHub: LightSpeed Demos](https://github.com/craig-br/lightspeed-demos?tab=readme-ov-file)  
@@ -136,6 +135,4 @@ Total **66 tasks** across **19 roles** → **627 lines of code (LOC)**.
 - 🎮 [Interactive Playbook Writing](https://play.instruqt.com/embed/redhat/tracks/writing-first-playbook?token=em_epihlg9zuxia3gzi&show_challenges=true)  
 
 ---  
-
-This **structured README** improves readability, **uses proper markdown formatting**, and **organizes sections** clearly. 🚀 Let me know if you need further refinements! 😊
 
