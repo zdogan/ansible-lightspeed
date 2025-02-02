@@ -1,0 +1,28 @@
+#This playbook does the following:
+#Renders the OpenShift configuration template using the template module.
+#Creates the OpenShift install directory.
+#Runs the OpenShift installer to create the cluster.
+---
+- name: Setup OpenShift Cluster
+  hosts: localhost
+  become: yes
+  vars_files:
+    - vars/config.yml
+  tasks:
+    - name: Render OpenShift configuration template
+      ansible.builtin.template:
+        src: templates/config.j2
+        dest: "{{ openshift_install_dir }}/install-config.yml"
+
+    - name: Create OpenShift install directory
+      file:
+        path: "{{ openshift_install_dir }}"
+        state: directory
+
+    - name: Run OpenShift installer
+      command: >
+        openshift-install create cluster
+        --dir {{ openshift_install_dir }}
+        --log-level=info
+      environment:
+        KUBECONFIG: "{{ openshift_install_dir }}/auth/kubeconfig"

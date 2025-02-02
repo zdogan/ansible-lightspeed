@@ -1,0 +1,32 @@
+# OpenShift Configuration Template
+# This template uses variables defined in vars/config.yml to generate the configuration file.
+
+apiVersion: v1
+baseDomain: example.com
+metadata:
+  name: my-openshift-cluster
+platform:
+  aws:
+    region: us-east-1
+pullSecret: '{{ openshift_pull_secret }}'
+sshKey: |
+  {{ ssh_public_key }}
+networking:
+  networkType: OpenShiftSDN
+  clusterNetwork:
+  - cidr: 10.128.0.0/14
+    hostPrefix: 23
+  serviceNetwork:
+  - 172.30.0.0/16
+controlPlane:
+  name: master
+  replicas: 3
+  platform:
+    aws:
+      type: m5.xlarge
+compute:
+- name: worker
+  replicas: 3
+  platform:
+    aws:
+      type: m5.large
