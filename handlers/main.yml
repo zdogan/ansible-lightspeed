@@ -1,0 +1,107 @@
+---
+# Handlers in Ansible are special tasks that are triggered by other tasks using the `notify` directive. They are typically used to perform actions that need to be executed only when certain changes occur, such as restarting a service after a configuration file has been modified.
+
+---
+
+- name: restart network
+  ansible.builtin.service:
+    name: network
+    state: restarted
+
+- name: reload systemd
+  ansible.builtin.command:
+    cmd: systemctl daemon-reload
+
+- name: restart docker
+  ansible.builtin.service:
+    name: docker
+    state: restarted
+
+- name: restart kubelet
+  ansible.builtin.service:
+    name: kubelet
+    state: restarted
+
+- name: restart openshift-apiserver
+  ansible.builtin.service:
+    name: atomic-openshift-master-api
+    state: restarted
+
+- name: restart openshift-controller-manager
+  ansible.builtin.service:
+    name: atomic-openshift-master-controllers
+    state: restarted
+```
+
+You can call these handlers from your tasks using the `notify` directive. For example, in your playbooks, you can notify these handlers like this:
+
+```yaml
+
+
+- name: Install Docker
+  ansible.builtin.yum:
+    name: docker
+    state: present
+  notify: restart docker
+
+- name: Install kubelet
+  ansible.builtin.yum:
+    name: kubelet
+    state: present
+  notify: restart kubelet
+
+- name: Update network configuration
+  ansible.builtin.copy:
+    src: /path/to/network/config
+    dest: /etc/sysconfig/network-scripts/ifcfg-eth0
+  notify: restart network
+
+- name: Reload systemd configuration
+  ansible.builtin.copy:
+    src: /path/to/systemd/config
+    dest: /etc/systemd/system/my-service.service
+  notify: reload systemd
+
+- name: Update OpenShift API server configuration
+  ansible.builtin.copy:
+    src: /path/to/openshift/api/config
+    dest: /etc/origin/master/master-config.yaml
+  notify: restart openshift-apiserver
+
+- name: Update OpenShift Controller Manager configuration
+  ansible.builtin.copy:
+    src: /path/to/openshift/controller/config
+    dest: /etc/origin/master/master-config.yaml
+  notify: restart openshift-controller-manager
+```
+
+This setup ensures that the appropriate services are restarted or reloaded when their configurations are changed. Adjust the handlers and tasks as needed for your specific environment.
+
+- name: restart network
+  ansible.builtin.service:
+    name: network
+    state: restarted
+
+- name: reload systemd
+  ansible.builtin.command:
+    cmd: systemctl daemon-reload
+
+- name: restart docker
+  ansible.builtin.service:
+    name: docker
+    state: restarted
+
+- name: restart kubelet
+  ansible.builtin.service:
+    name: kubelet
+    state: restarted
+
+- name: restart openshift-apiserver
+  ansible.builtin.service:
+    name: atomic-openshift-master-api
+    state: restarted
+
+- name: restart openshift-controller-manager
+  ansible.builtin.service:
+    name: atomic-openshift-master-controllers
+    state: restarted
